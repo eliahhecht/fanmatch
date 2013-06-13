@@ -1,1 +1,7 @@
 FanMatch.suo
+Backup/
+_UpgradeReport_Files/
+*.suo
+FanMatch/bin/
+FanMatch/obj/
+UpgradeLog*

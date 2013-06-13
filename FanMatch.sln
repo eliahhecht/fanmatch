@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Web Developer Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FanMatch", "FanMatch\FanMatch.csproj", "{5184828F-4CB8-46E5-BB3D-1A1A1F3D5420}"
 EndProject
 Global
