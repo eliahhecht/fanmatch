@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201206271329076_RefactorPersonTypeAndMakeNamesRequired.Designer.cs">
       <DependentUpon>201206271329076_RefactorPersonTypeAndMakeNamesRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306131333176_AddMatchLockAndBan.cs" />
+    <Compile Include="Migrations\201306131333176_AddMatchLockAndBan.Designer.cs">
+      <DependentUpon>201306131333176_AddMatchLockAndBan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Data Access\Context.cs" />
     <Compile Include="Models\Data Access\FandomRepository.cs" />
@@ -261,6 +265,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_PersonTable.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201306131333176_AddMatchLockAndBan.resx">
+      <DependentUpon>201306131333176_AddMatchLockAndBan.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
