@@ -1,0 +1,35 @@
+﻿@model IEnumerable<FanMatch.Models.Person>
+
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th></th>
+        <th>Fandoms</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.Partial("_PersonType", item)
+        </td>
+        <td>
+            @if (item.Fandoms != null)
+            {
+                @String.Join(", ", item.Fandoms.OrderBy(f => f.Name).Select(f => f.Name))
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "Person", new { id=item.Id }, null) |
+            @Html.ActionLink("Details", "Details", "Person",  new { id = item.Id }, null) |
+            @Html.ActionLink("Delete", "Delete", "Person", new { id = item.Id }, null)
+        </td>
+    </tr>
+}
+
+</table>

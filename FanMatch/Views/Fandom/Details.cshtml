@@ -1,0 +1,31 @@
+﻿@model FanMatch.Models.Fandom
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Fandom</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    
+    <div class="display-label">People</div>
+    <div class="display-field">
+    <ul>
+        @foreach (var person in Model.People.OrderBy(p => p.Name))
+        {
+            <li>@person.Name</li>
+        }
+        </ul>
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

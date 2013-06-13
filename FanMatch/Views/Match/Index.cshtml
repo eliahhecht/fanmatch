@@ -1,0 +1,33 @@
+﻿@model FanMatch.Models.Logic.MatchResult
+
+@{
+    ViewBag.Title = "Match Results";
+}
+
+<h2>Matched</h2>
+
+<table>
+    <tr>
+        <th>Reader</th>
+        <th>Writer</th>
+        <th>Fandom</th>
+    </tr>
+    @foreach (var match in Model.Matches)
+    {
+        <tr>
+            <td>@match.Reader.Name</td>
+            <td>@match.Writer.Name</td>
+            <td>@match.Fandom.Name</td>
+        </tr>
+    }
+</table>
+
+@if (Model.UnmatchedPeople.Any())
+{
+
+    <h2>Unmatched</h2>
+    
+    @Html.Partial("_PersonTable", Model.UnmatchedPeople) 
+    
+    
+}
