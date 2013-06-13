@@ -1,5 +1,5 @@
 ﻿@model FanMatch.Controllers.PersonController.PersonEditorViewModel
-<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.10.3.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/underscore-min.js")" type="text/javascript"></script>
 <link type="text/css" rel="Stylesheet" href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" />
 <script type="text/javascript">
@@ -18,9 +18,11 @@ $(function() {
             $("<li />").data("fandom-id", ui.item.id)
                 .html(ui.item.value + "<a href='#' class='Delete'>[x]</a>")
                 .appendTo($("#FandomList"));
+            $(this).val("");
+            return false;
     };
 
-    $("#Fandoms").autocomplete({source: fandoms, select: itemSelected});
+    $("#Fandoms").autocomplete({source: fandoms, select: itemSelected, autoFocus: true});
 
     $("#FandomList").on("click", ".Delete", function(e) {
         e.preventDefault();
