@@ -21,8 +21,9 @@ namespace FanMatch.Models
 
         public bool Complements(Person other)
         {
-            return (IsReader && other.IsWriter)
-                || (IsWriter && other.IsReader);
+            return ((IsReader && other.IsWriter)
+                || (IsWriter && other.IsReader))
+                && (other.Id != this.Id);
         }
     }
 }

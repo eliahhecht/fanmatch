@@ -9,10 +9,34 @@ namespace FanMatch.Models
     public class Matcherizer
     {
         private IEnumerable<Person> people;
+        private Dictionary<int, int> matchCountByPersonId;
+        private Dictionary<int, List<Person>> matchablePeopleByFandomId;
+
+        public const int MAX_MATCHES_PER_PERSON = 2;
 
         public Matcherizer(IEnumerable<Person> people)
         {
             this.people = people;
+            this.matchCountByPersonId = people.ToDictionary(p => p.Id, p => 0);
+            this.matchablePeopleByFandomId = new Dictionary<int, List<Person>>();
+
+            foreach (var person in people)
+            {
+                foreach (var fandom in person.Fandoms)
+                {
+                    if (!matchablePeopleByFandomId.ContainsKey(fandom.Id))
+                    {
+                        matchablePeopleByFandomId[fandom.Id] = new List<Person>();
+                    }
+                    matchablePeopleByFandomId[fandom.Id].Add(person);
+                }
+            }
+        }
+
+        private bool HasRoomForMoreMatches(Person p)
+        {
+            var count = this.matchCountByPersonId[p.Id];
+            return count == 0 || (count < MAX_MATCHES_PER_PERSON && p.CanMatchMultiple);
         }
 
         public MatchResult Matcherize()
@@ -27,46 +51,72 @@ namespace FanMatch.Models
 
             foreach (var person in allThePeople)
             {
-                if (alreadyMatched.Contains(person.Id))
+                if (!HasRoomForMoreMatches(person))
                 {
                     continue;
                 }
 
-                var match = allThePeople
-                    .Where(p => !alreadyMatched.Contains(p.Id))
-                    .Where(p => p.Id != person.Id)
-                    .Where(p => p.Complements(person))
-                    .Where(p => p.Fandoms.Intersect(person.Fandoms).Any())
-                    .FirstOrDefault();
 
-                if (match != null)
+                foreach (var fandom in person.Fandoms)
                 {
-                    alreadyMatched.Add(person.Id);
-                    alreadyMatched.Add(match.Id);
-
-                    var reader = person.IsReader
-                        ? person
-                        : match;
-
-                    var writer = reader == person
-                        ? match
-                        : person;
-
-                    res.Matches.Add(new Match
+                    var match = FindMatch(fandom, person);
+                    if (match != null)
                     {
-                        Fandom = person.Fandoms.Intersect(match.Fandoms).First(),
-                        Reader = reader,
-                        Writer = writer
-                    });
+                        Console.WriteLine("Matched {0} and {1} on fandom {2}", match.Reader.Id, match.Writer.Id, fandom.Id);
+                        res.Matches.Add(match);
+                        break;
+                    }
                 }
-                else
+
+                if (this.matchCountByPersonId[person.Id] == 0)
                 {
+                    Console.WriteLine("Couldn't match " + person.Id);
                     res.UnmatchedPeople.Add(person);
                 }
 
             }
 
             return res;
+        }
+
+        private Match FindMatch(Fandom fandom, Person person)
+        {
+            var listForFandom = this.matchablePeopleByFandomId[fandom.Id];
+
+            var other = listForFandom
+                .OrderBy(p => this.matchCountByPersonId[p.Id])
+                .FirstOrDefault(p => p.Complements(person));
+            if (other == null)
+            {
+                return null;
+            }
+            var matchees = new[] { person, other };
+            Person reader = null;
+            Person writer = null;
+            foreach (var p in matchees)
+            {
+                matchCountByPersonId[p.Id]++;
+
+                if (!HasRoomForMoreMatches(p))
+                {
+                    listForFandom.Remove(p);
+                }
+                if (reader == null && p.IsReader)
+                {
+                    reader = p;
+                }
+                else if (writer == null && p.IsWriter)
+                {
+                    writer = p;
+                }
+            }
+
+            if (reader == null || writer == null)
+            {
+                throw new Exception("This shouldn't have happened: complementary match without both a reader and writer");
+            }
+
+            return new Match { Fandom = fandom, Writer = writer, Reader = reader };
         }
 
     }
