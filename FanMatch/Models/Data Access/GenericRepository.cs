@@ -74,9 +74,7 @@ namespace FanMatch.Models.Data_Access
 
         public void Update(T newEntity)
         {
-            var set = GetDbSet(db);
-            var existing = set.Find(newEntity.Id);
-            AssertExists(existing);
+            db.Entry(newEntity).State = System.Data.EntityState.Modified;
             db.SaveChanges();
         }
     }
