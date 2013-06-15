@@ -6,52 +6,52 @@ namespace FanMatch.Migrations
     {
         public override void Up()
         {
-            CreateTable(
-                "People",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
+            //CreateTable(
+            //    "People",
+            //    c => new
+            //        {
+            //            Id = c.Int(nullable: false, identity: true),
+            //            Name = c.String(),
+            //        })
+            //    .PrimaryKey(t => t.Id);
             
-            CreateTable(
-                "Matches",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Writer_Id = c.Int(),
-                        Reader_Id = c.Int(),
-                        Project_Id = c.Int(),
-                        Fandom_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("People", t => t.Writer_Id)
-                .ForeignKey("People", t => t.Reader_Id)
-                .ForeignKey("Projects", t => t.Project_Id)
-                .ForeignKey("Fandoms", t => t.Fandom_Id)
-                .Index(t => t.Writer_Id)
-                .Index(t => t.Reader_Id)
-                .Index(t => t.Project_Id)
-                .Index(t => t.Fandom_Id);
+            //CreateTable(
+            //    "Matches",
+            //    c => new
+            //        {
+            //            Id = c.Int(nullable: false, identity: true),
+            //            Writer_Id = c.Int(),
+            //            Reader_Id = c.Int(),
+            //            Project_Id = c.Int(),
+            //            Fandom_Id = c.Int(),
+            //        })
+            //    .PrimaryKey(t => t.Id)
+            //    .ForeignKey("People", t => t.Writer_Id)
+            //    .ForeignKey("People", t => t.Reader_Id)
+            //    .ForeignKey("Projects", t => t.Project_Id)
+            //    .ForeignKey("Fandoms", t => t.Fandom_Id)
+            //    .Index(t => t.Writer_Id)
+            //    .Index(t => t.Reader_Id)
+            //    .Index(t => t.Project_Id)
+            //    .Index(t => t.Fandom_Id);
             
-            CreateTable(
-                "Projects",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
+            //CreateTable(
+            //    "Projects",
+            //    c => new
+            //        {
+            //            Id = c.Int(nullable: false, identity: true),
+            //            Name = c.String(),
+            //        })
+            //    .PrimaryKey(t => t.Id);
             
-            CreateTable(
-                "Fandoms",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
+            //CreateTable(
+            //    "Fandoms",
+            //    c => new
+            //        {
+            //            Id = c.Int(nullable: false, identity: true),
+            //            Name = c.String(),
+            //        })
+            //    .PrimaryKey(t => t.Id);
             
         }
         
