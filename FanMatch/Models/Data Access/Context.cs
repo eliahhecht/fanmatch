@@ -15,5 +15,7 @@ namespace FanMatch.Models
         public IDbSet<Match> Matches { get; set; }
         public IDbSet<Project> Projects { get; set; }
         public IDbSet<Fandom> Fandoms { get; set; }
+
+     
     }
 }

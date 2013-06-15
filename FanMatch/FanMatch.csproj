@@ -80,6 +80,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers.cs" />
     <Compile Include="Migrations\201206260217172_InitialCreate.cs" />
     <Compile Include="Migrations\201206260217172_InitialCreate.Designer.cs">
       <DependentUpon>201206260217172_InitialCreate.cs</DependentUpon>
@@ -104,6 +105,7 @@
     <Compile Include="Models\Data Access\Context.cs" />
     <Compile Include="Models\Data Access\FandomRepository.cs" />
     <Compile Include="Models\Data Access\GenericRepository.cs" />
+    <Compile Include="Models\Data Access\MatchRepository.cs" />
     <Compile Include="Models\Entities\Fandom.cs" />
     <Compile Include="Models\Entities\IId.cs" />
     <Compile Include="Models\Entities\Match.cs" />
@@ -114,8 +116,20 @@
     <Compile Include="Models\Logic\MatchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\FandomViewModel.cs" />
+    <Compile Include="ViewModels\MatchResultViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.nuget.readme.txt" />
+    <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\google-code-prettify\prettify.css" />
+    <Content Include="Content\google-code-prettify\prettify.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

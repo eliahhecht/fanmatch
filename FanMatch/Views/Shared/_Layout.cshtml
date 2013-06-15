@@ -1,29 +1,38 @@
-﻿<!DOCTYPE html>
+﻿@using FanMatch
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    @*<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />*@
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.Content("~/Scripts/jquery-2.0.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+
 </head>
 <body>
-    <div class="page">
-        <div id="header">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+        <div id="header" class="">
             <div id="title">
-                <h1>FanMatch!</h1>
+                <h3>FanMatch!</h3>
             </div>
 
             <div id="menucontainer">
-                <ul id="menu">
-                    <li>@Html.ActionLink("People", "Index", "Person")</li>
-                    <li>@Html.ActionLink("Fandoms", "Index", "Fandom")</li>
-                    <li>@Html.ActionLink("Matches", "Index", "Match")</li>
+                <ul id="menu" class="nav nav-pills nav-stacked">
+                    <li class="@Html.ActiveIfCurrentController("Person")">@Html.ActionLink("People", "Index", "Person")</li>
+                    <li class="@Html.ActiveIfCurrentController("Fandom")">@Html.ActionLink("Fandoms", "Index", "Fandom")</li>
+                    <li class="@Html.ActiveIfCurrentController("Match")">@Html.ActionLink("Matches", "Index", "Match")</li>
                 </ul>
             </div>
+            </div>
         </div>
-        <div id="main">
+        <div id="main" class="span10">
             @RenderBody()
         </div>
-        <div id="footer">
+            </div>
+        <div id="footer" class="row-fluid">
         </div>
     </div>
 </body>

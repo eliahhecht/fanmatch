@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace FanMatch.Models
 {
-    public interface IPersonRepository : IGenericRepository<Person>
+    public interface IPersonRepository : IGenericRepository<Person>, IDisposable
     {
 
     }

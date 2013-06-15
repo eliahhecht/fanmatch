@@ -14,12 +14,14 @@ namespace FanMatchTests.Logic
     {
         private IdGenerator idGen = new IdGenerator();
         private List<Person> people;
+        private List<Match> existingMatches;
 
         [SetUp]
         public void Setup()
         {
             this.people = new List<Person>();
             this.universalFandom = MakeFandom();
+            this.existingMatches = new List<Match>();
         }
 
         private Person MakePerson(ICollection<Fandom> fandoms = null, bool reader = false, bool writer = false)
@@ -67,7 +69,7 @@ namespace FanMatchTests.Logic
             {
                 matchPeople = this.people;
             }
-            return new Matcherizer(matchPeople).Matcherize();
+            return new Matcherizer(matchPeople, existingMatches).Matcherize();
         }
 
         [Test]
@@ -77,7 +79,7 @@ namespace FanMatchTests.Logic
             var reader = this.MakePerson(fandom, reader: true);
             var writer = this.MakePerson(fandom, writer: true);
 
-            var matchInfo = new Matcherizer(new[] { reader, writer}).Matcherize();
+            var matchInfo = new Matcherizer(new[] { reader, writer}, existingMatches).Matcherize();
             var matches = matchInfo.Matches;
 
             Assert.That(matches.Count(), Is.EqualTo(1), "There should be exactly 1 match");
@@ -195,6 +197,45 @@ namespace FanMatchTests.Logic
 
             Assert.That(matchi.Matches.Count, Is.EqualTo(1), "There should be exactly one match");
             Assert.That(matchi.UnmatchedPeople, Is.Empty, "There should be no unmatched people because everyone has a match");
+        }
+
+        private void Ban(Person reader, Person writer)
+        {
+            this.existingMatches.Add(new Match { IsBanned = true, Reader = reader, Writer = writer });
+        }
+
+        private void Lock(Person reader, Person writer)
+        {
+            this.existingMatches.Add(new Match { IsLocked = true, Reader = reader, Writer = writer });
+        }
+
+        [Test]
+        public void BannedMatchesAreNotAllowed()
+        {
+            var reader = MakeReader();
+            var writer = MakeWriter();
+            this.Ban(reader, writer);
+
+            var matchi = this.Match();
+
+            Assert.That(matchi.Matches, Is.Empty, "There should be no matches because all of them are banned");
+            Assert.That(matchi.UnmatchedPeople.Count, Is.EqualTo(2), "Both people should be unmatched");
+            Assert.That(matchi.BannedMatches.Count, Is.EqualTo(1), "The banned match should come through");
+        }
+
+        [Test]
+        public void LockedMatchesAreForced()
+        {
+            var fandomA = MakeFandom();
+            var fandomB = MakeFandom();
+            var r = MakeReader(new[] { fandomA });
+            var w = MakeWriter(new[] { fandomB});
+            this.Lock(r, w);
+
+            var matchi = this.Match();
+
+            Assert.That(matchi.LockedMatches.Count, Is.EqualTo(1), "There should be a match despite the fandom mismatch because it is locked");
+            Assert.That(matchi.UnmatchedPeople, Is.Empty, "There should be no unmatched people");
         }
     }
 }
