@@ -5,13 +5,13 @@ namespace FanMatch.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class AddMatchLockAndBan : IMigrationMetadata
+    public sealed partial class AddBannedAndLocked : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddMatchLockAndBan));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddBannedAndLocked));
         
         string IMigrationMetadata.Id
         {
-            get { return "201306131333176_AddMatchLockAndBan"; }
+            get { return "201306151242077_AddBannedAndLocked"; }
         }
         
         string IMigrationMetadata.Source
