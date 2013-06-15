@@ -18,7 +18,12 @@ namespace FanMatch.Controllers
 
         public ViewResult Index()
         {
-            return View(db.Fandoms.ToList());
+            return View();
+        }
+
+        public PartialViewResult _FandomTable()
+        {
+            return PartialView(db.Fandoms.ToList());
         }
 
         //
@@ -48,7 +53,7 @@ namespace FanMatch.Controllers
             {
                 db.Fandoms.Add(fandom);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Create");
             }
 
             return View(fandom);
