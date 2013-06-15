@@ -6,10 +6,10 @@ namespace FanMatch.Migrations
     {
         public override void Up()
         {
-            AddColumn("People", "IsReader", c => c.Boolean(nullable: false));
-            AddColumn("People", "IsWriter", c => c.Boolean(nullable: false));
-            AlterColumn("People", "Name", c => c.String(nullable: false));
-            AlterColumn("Fandoms", "Name", c => c.String(nullable: false));
+            //AddColumn("People", "IsReader", c => c.Boolean(nullable: false));
+            //AddColumn("People", "IsWriter", c => c.Boolean(nullable: false));
+            //AlterColumn("People", "Name", c => c.String(nullable: false));
+            //AlterColumn("Fandoms", "Name", c => c.String(nullable: false));
         }
         
         public override void Down()

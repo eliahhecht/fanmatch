@@ -6,18 +6,18 @@ namespace FanMatch.Migrations
     {
         public override void Up()
         {
-            CreateTable(
-                "FandomPersons",
-                c => new
-                    {
-                        Fandom_Id = c.Int(nullable: false),
-                        Person_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Fandom_Id, t.Person_Id })
-                .ForeignKey("Fandoms", t => t.Fandom_Id, cascadeDelete: true)
-                .ForeignKey("People", t => t.Person_Id, cascadeDelete: true)
-                .Index(t => t.Fandom_Id)
-                .Index(t => t.Person_Id);
+            //CreateTable(
+            //    "FandomPersons",
+            //    c => new
+            //        {
+            //            Fandom_Id = c.Int(nullable: false),
+            //            Person_Id = c.Int(nullable: false),
+            //        })
+            //    .PrimaryKey(t => new { t.Fandom_Id, t.Person_Id })
+            //    .ForeignKey("Fandoms", t => t.Fandom_Id, cascadeDelete: true)
+            //    .ForeignKey("People", t => t.Person_Id, cascadeDelete: true)
+            //    .Index(t => t.Fandom_Id)
+            //    .Index(t => t.Person_Id);
             
         }
         
