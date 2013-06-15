@@ -34,7 +34,7 @@ namespace FanMatch
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            Database.SetInitializer<FanMatchDb>(null);
+            //Database.SetInitializer<FanMatchDb>(null);
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
