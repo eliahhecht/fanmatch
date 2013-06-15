@@ -21,7 +21,7 @@ namespace FanMatch.Models.Data_Access
     {
         protected abstract IDbSet<T> GetDbSet(FanMatchDb db);
 
-        private readonly FanMatchDb db;
+        protected readonly FanMatchDb db;
 
         public GenericCrudRepository()
         {

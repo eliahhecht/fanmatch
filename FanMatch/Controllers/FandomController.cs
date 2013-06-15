@@ -67,6 +67,11 @@ namespace FanMatch.Controllers
         {
             using (var db = getDb())
             {
+                if (db.GetByName(fandom.Name) != null)
+                {
+                    ModelState.AddModelError("Name", "There is already a fandom by this name");
+                }
+                
                 if (ModelState.IsValid)
                 {
                     db.Create(fandom);
