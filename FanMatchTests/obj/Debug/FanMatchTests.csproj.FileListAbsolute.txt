@@ -1,1 +1,12 @@
 C:\Users\Eliah\src\FanMatch\FanMatchTests\obj\Debug\FanMatchTests.csprojResolveAssemblyReference.cache
+C:\Users\Eliah\src\FanMatch\FanMatchTests\bin\Debug\FanMatchTests.dll
+C:\Users\Eliah\src\FanMatch\FanMatchTests\bin\Debug\FanMatchTests.pdb
+C:\Users\Eliah\src\FanMatch\FanMatchTests\bin\Debug\FanMatch.dll
+C:\Users\Eliah\src\FanMatch\FanMatchTests\bin\Debug\Moq.dll
+C:\Users\Eliah\src\FanMatch\FanMatchTests\bin\Debug\EntityFramework.dll
+C:\Users\Eliah\src\FanMatch\FanMatchTests\bin\Debug\FanMatch.pdb
+C:\Users\Eliah\src\FanMatch\FanMatchTests\bin\Debug\Moq.pdb
+C:\Users\Eliah\src\FanMatch\FanMatchTests\bin\Debug\Moq.xml
+C:\Users\Eliah\src\FanMatch\FanMatchTests\bin\Debug\EntityFramework.xml
+C:\Users\Eliah\src\FanMatch\FanMatchTests\obj\Debug\FanMatchTests.dll
+C:\Users\Eliah\src\FanMatch\FanMatchTests\obj\Debug\FanMatchTests.pdb

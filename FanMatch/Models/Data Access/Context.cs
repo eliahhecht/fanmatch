@@ -9,7 +9,7 @@ namespace FanMatch.Models
 {
 
 
-    public class FanMatchDb : DbContext, IFanMatchDb
+    public class FanMatchDb : DbContext
     {
         public IDbSet<Person> People { get; set; }
         public IDbSet<Match> Matches { get; set; }

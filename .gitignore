@@ -5,3 +5,5 @@ _UpgradeReport_Files/
 FanMatch/bin/
 FanMatch/obj/
 UpgradeLog*
+FanMatchTests/bin/
+FanMatchTests/obj/

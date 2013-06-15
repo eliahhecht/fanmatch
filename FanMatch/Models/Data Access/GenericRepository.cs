@@ -9,7 +9,7 @@ namespace FanMatch.Models.Data_Access
 {
     public abstract class GenericCrudRepository<T> where T: class, IId
     {
-        protected abstract DbSet<T> GetDbSet(FanMatchDb db);
+        protected abstract IDbSet<T> GetDbSet(FanMatchDb db);
 
 
         private FanMatchDb GetContext()

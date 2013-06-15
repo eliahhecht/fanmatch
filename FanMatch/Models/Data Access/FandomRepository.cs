@@ -15,7 +15,7 @@ namespace FanMatch.Models
     }
     public class FandomRepository : GenericCrudRepository<Fandom>, IFandomRepository
     {
-        protected override System.Data.Entity.DbSet<Fandom> GetDbSet(FanMatchDb db)
+        protected override System.Data.Entity.IDbSet<Fandom> GetDbSet(FanMatchDb db)
         {
             return db.Fandoms;
         }

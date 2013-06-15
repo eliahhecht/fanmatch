@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FanMatch.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -32,6 +34,7 @@ namespace FanMatch
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            Database.SetInitializer<FanMatchDb>(null);
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);

@@ -17,7 +17,7 @@ namespace FanMatch.Models
 
     public class PersonRepository :  GenericCrudRepository<Person>, IPersonRepository
     {
-        protected override DbSet<Person> GetDbSet(FanMatchDb db)
+        protected override IDbSet<Person> GetDbSet(FanMatchDb db)
         {
             return db.People;
         }
