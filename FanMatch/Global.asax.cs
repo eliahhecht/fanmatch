@@ -1,4 +1,5 @@
-﻿using FanMatch.Models;
+﻿using FanMatch.Migrations;
+using FanMatch.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -34,7 +35,7 @@ namespace FanMatch
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            //Database.SetInitializer<FanMatchDb>(null);
+            Database.SetInitializer<FanMatchDb>(new MigrateDatabaseToLatestVersion<FanMatchDb, Configuration>());
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
