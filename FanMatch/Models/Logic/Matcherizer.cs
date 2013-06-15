@@ -41,14 +41,10 @@ namespace FanMatch.Models
 
         public MatchResult Matcherize()
         {
-            var allThePeople = people
-                .OrderBy(p => p.Fandoms.Count())
-                .ToList();
-
-            var alreadyMatched = new HashSet<int>();
-
             var res = new MatchResult();
 
+            var allThePeople = people
+                .OrderBy(p => p.Fandoms.Count());
             foreach (var person in allThePeople)
             {
                 if (!HasRoomForMoreMatches(person))
