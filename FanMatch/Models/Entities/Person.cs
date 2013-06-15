@@ -17,6 +17,8 @@ namespace FanMatch.Models
         public bool IsReader { get; set; }
         public bool IsWriter { get; set; }
 
+        public bool CanMatchMultiple { get; set; }
+
         public bool Complements(Person other)
         {
             return (IsReader && other.IsWriter)

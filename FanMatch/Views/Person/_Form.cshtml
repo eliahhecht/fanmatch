@@ -64,6 +64,12 @@ $(function() {
             @Html.EditorFor(m => m.Person.IsReader)
         </div>
         <div class="editor-label">
+            @Html.LabelFor(m => m.Person.CanMatchMultiple)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.Person.CanMatchMultiple)
+        </div>
+        <div class="editor-label">
             @Html.LabelFor(model => model.Person.Fandoms)
         </div>
         <div class="editor-field">

@@ -96,6 +96,10 @@
     <Compile Include="Migrations\201306151242077_AddBannedAndLocked.Designer.cs">
       <DependentUpon>201306151242077_AddBannedAndLocked.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306151400478_CanMatchMultiple.cs" />
+    <Compile Include="Migrations\201306151400478_CanMatchMultiple.Designer.cs">
+      <DependentUpon>201306151400478_CanMatchMultiple.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Data Access\Context.cs" />
     <Compile Include="Models\Data Access\FandomRepository.cs" />
@@ -220,12 +224,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\PersonOld\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\PersonOld\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Person\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +268,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201306151242077_AddBannedAndLocked.resx">
       <DependentUpon>201306151242077_AddBannedAndLocked.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306151400478_CanMatchMultiple.resx">
+      <DependentUpon>201306151400478_CanMatchMultiple.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

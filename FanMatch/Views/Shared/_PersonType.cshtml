@@ -1,14 +1,17 @@
 ﻿@model FanMatch.Models.Person
 
-@if (Model.IsReader)
-{
-    <text>Reader</text>
-}
-@if (Model.IsReader && Model.IsWriter)
-{
-    <text>/</text>
-}
-@if (Model.IsWriter)
-{
-    <text>Writer</text>
-}
+@{
+    var attributes = new List<string>();
+    if (Model.IsReader) {
+        attributes.Add("Reader");
+    }
+    if (Model.IsWriter) {
+        attributes.Add("Writer");
+    }
+    if (Model.CanMatchMultiple) {
+        attributes.Add("Multiple");
+    }
+    
+    }
+
+@(String.Join(", ", attributes))
