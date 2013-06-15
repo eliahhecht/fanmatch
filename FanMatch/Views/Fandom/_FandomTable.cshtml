@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FanMatch.Models.Fandom>
+﻿@model IEnumerable<FanMatch.ViewModels.FandomViewModel>
 
 <table>
     <tr>
@@ -11,7 +11,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.OrderByDescending(f => f.People.Count)) {
+@foreach (var item in Model.OrderByDescending(f => f.People.Count).ThenBy(f => f.Name)) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)

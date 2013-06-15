@@ -6,12 +6,9 @@ using FanMatch.Models.Data_Access;
 
 namespace FanMatch.Models
 {
-    public interface IFandomRepository
+    public interface IFandomRepository : IGenericRepository<Fandom>, IDisposable
     {
-        IEnumerable<Fandom> GetAll();
-        void Create(Fandom fandom);
-        void Delete(int id);
-        void Update(Fandom fandom);
+
     }
     public class FandomRepository : GenericCrudRepository<Fandom>, IFandomRepository
     {

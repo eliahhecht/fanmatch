@@ -7,12 +7,9 @@ using System.Data.Entity;
 
 namespace FanMatch.Models
 {
-    public interface IPersonRepository
+    public interface IPersonRepository : IGenericRepository<Person>
     {
-        IEnumerable<Person> GetAll();
-        void Create(Person entity);
-        void Delete(int id);
-        void Update(Person newEntity);
+
     }
 
     public class PersonRepository :  GenericCrudRepository<Person>, IPersonRepository

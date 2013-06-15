@@ -6,13 +6,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FanMatch.Models;
+using FanMatch.ViewModels;
 
 namespace FanMatch.Controllers
 { 
     public class FandomController : Controller
     {
-        private readonly FanMatchDb db = new FanMatchDb();
+        private readonly Func<IFandomRepository> getDb;
 
+        public FandomController()
+            : this(() => new FandomRepository()) { }
+
+        public FandomController(Func<IFandomRepository> repo)
+        {
+            this.getDb = repo;
+        }
 
         //
         // GET: /Fandom/
@@ -24,7 +32,11 @@ namespace FanMatch.Controllers
 
         public PartialViewResult _FandomTable()
         {
-            return PartialView(db.Fandoms.ToList());
+            using (var db = getDb())
+            {
+                var models = db.GetAll().Select(m => new FandomViewModel(m)).ToList();
+                return PartialView(models);
+            }
         }
 
         //
@@ -32,8 +44,11 @@ namespace FanMatch.Controllers
 
         public ViewResult Details(int id)
         {
-            Fandom fandom = db.Fandoms.Find(id);
-            return View(fandom);
+            using (var db = getDb())
+            {
+                var fandom = db.GetById(id);
+                return View(new FandomViewModel(fandom));
+            }
         }
 
         //
@@ -50,14 +65,16 @@ namespace FanMatch.Controllers
         [HttpPost]
         public ActionResult Create(Fandom fandom)
         {
-            if (ModelState.IsValid)
+            using (var db = getDb())
             {
-                db.Fandoms.Add(fandom);
-                db.SaveChanges();
-                return RedirectToAction("Create");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.Create(fandom);
+                    return RedirectToAction("Create");
+                }
 
-            return View(fandom);
+                return View(fandom);
+            }
         }
         
         //
@@ -65,8 +82,11 @@ namespace FanMatch.Controllers
  
         public ActionResult Edit(int id)
         {
-            Fandom fandom = db.Fandoms.Find(id);
-            return View(fandom);
+            using (var db = getDb())
+            {
+                Fandom fandom = db.GetById(id);
+                return View(fandom);
+            }
         }
 
         //
@@ -75,13 +95,15 @@ namespace FanMatch.Controllers
         [HttpPost]
         public ActionResult Edit(Fandom fandom)
         {
-            if (ModelState.IsValid)
+            using (var db = getDb())
             {
-                db.Entry(fandom).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Update(fandom);
+                    return RedirectToAction("Index");
+                }
+                return View(fandom);
             }
-            return View(fandom);
         }
 
         //
@@ -89,8 +111,11 @@ namespace FanMatch.Controllers
  
         public ActionResult Delete(int id)
         {
-            Fandom fandom = db.Fandoms.Find(id);
-            return View(fandom);
+            using (var db = getDb())
+            {
+                Fandom fandom = db.GetById(id);
+                return View(fandom);
+            }
         }
 
         //
@@ -98,17 +123,12 @@ namespace FanMatch.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
-            Fandom fandom = db.Fandoms.Find(id);
-            db.Fandoms.Remove(fandom);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
         {
-            db.Dispose();
-            base.Dispose(disposing);
+            using (var db = getDb())
+            {
+                db.Delete(id);
+                return RedirectToAction("Index");
+            }
         }
     }
 }

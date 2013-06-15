@@ -1,4 +1,4 @@
-﻿@model FanMatch.Models.Fandom
+﻿@model FanMatch.ViewModels.FandomViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -18,9 +18,9 @@
     <div class="display-label">People</div>
     <div class="display-field">
     <ul>
-        @foreach (var person in Model.People.OrderBy(p => p.Name))
+        @foreach (var person in Model.People.OrderBy(p => p))
         {
-            <li>@person.Name</li>
+            <li>@person</li>
         }
         </ul>
     </div>
