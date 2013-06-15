@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace FanMatch.Models
 {
-    public class FanMatchDb : DbContext
+
+
+    public class FanMatchDb : DbContext, IFanMatchDb
     {
-        public DbSet<Person> People { get; set; }
-        public DbSet<Match> Matches { get; set; }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<Fandom> Fandoms { get; set; }
+        public IDbSet<Person> People { get; set; }
+        public IDbSet<Match> Matches { get; set; }
+        public IDbSet<Project> Projects { get; set; }
+        public IDbSet<Fandom> Fandoms { get; set; }
     }
 }

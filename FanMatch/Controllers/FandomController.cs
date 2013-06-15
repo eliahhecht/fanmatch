@@ -11,7 +11,8 @@ namespace FanMatch.Controllers
 { 
     public class FandomController : Controller
     {
-        private FanMatchDb db = new FanMatchDb();
+        private readonly FanMatchDb db = new FanMatchDb();
+
 
         //
         // GET: /Fandom/
