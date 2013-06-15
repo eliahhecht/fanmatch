@@ -1,12 +1,13 @@
 ﻿using FanMatch.Controllers;
 using FanMatch.Models;
 using Moq;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
+
 
 namespace FanMatchTests.Controllers
 {
@@ -15,13 +16,14 @@ namespace FanMatchTests.Controllers
         private Mock<IFandomRepository> repo;
         private FandomController contr;
 
-        public FandomControllerTest()
+        [SetUp]
+        public void Setup()
         {
             this.repo = new Mock<IFandomRepository>();
             this.contr = new FandomController(() => repo.Object);
         }
 
-        [Fact]
+        [Test]
         public void DuplicativelyNamedFandomsCannotBeCreated()
         {
             const string name = "haaaaary potter";
