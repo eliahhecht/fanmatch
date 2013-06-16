@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace FanMatch.Models.Data_Access
 {
@@ -24,7 +25,9 @@ namespace FanMatch.Models.Data_Access
 
         public IEnumerable<Match> LoadAll()
         {
-            return this.db.Matches;
+            return this.db.Matches
+                .Include(m => m.Reader.Fandoms)
+                .Include(m => m.Writer.Fandoms);
         }
 
         public void Clear(int reader, int writer)

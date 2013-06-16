@@ -59,7 +59,7 @@ namespace FanMatch.Models.Data_Access
             db.SaveChanges();
         }
 
-        public IList<T> GetAll()
+        public virtual IList<T> GetAll()
         {
             var set = GetDbSet(db);
             return set.ToList();

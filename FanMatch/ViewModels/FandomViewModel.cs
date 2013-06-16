@@ -10,18 +10,18 @@ namespace FanMatch.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IList<string> People { get; set; }
+        public IList<Person> People { get; set; }
 
         public FandomViewModel()
         {
-            this.People = new List<string>();
+            this.People = new List<Person>();
         }
 
         public FandomViewModel(Fandom fandom)
         {
             this.Id = fandom.Id;
             this.Name = fandom.Name;
-            this.People = fandom.People.Select(p => p.Name).ToList();
+            this.People = fandom.People.ToList();
         }
     }
 }

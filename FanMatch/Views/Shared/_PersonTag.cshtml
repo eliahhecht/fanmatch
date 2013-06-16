@@ -1,0 +1,25 @@
+﻿@model FanMatch.Models.Person
+
+@{
+    var fandoms = Model.Fandoms.ToList();
+    var s = fandoms.Count == 1 ? "" : "s";
+    
+    }
+
+
+@if (Model.IsReader)
+{
+    <i class="icon-headphones"></i>
+}
+@if (Model.IsWriter)
+{
+    <i class="icon-book"></i>
+}
+@if (Model.CanMatchMultiple)
+{
+    <i class="icon-repeat"></i>
+}
+
+@Model.Name
+
+(<a class="fandom-tip" title="@(String.Join(", ", fandoms.Select(f=>f.Name)))">@fandoms.Count fandom@(s)</a>)

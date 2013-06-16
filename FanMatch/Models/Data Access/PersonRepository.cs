@@ -25,5 +25,10 @@ namespace FanMatch.Models
             existing.Fandoms = newEntity.Fandoms;
         }
 
+        public override IList<Person> GetAll()
+        {
+            return GetDbSet(db).Include(p => p.Fandoms).ToList();
+        }
+
     }
 }

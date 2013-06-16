@@ -237,5 +237,11 @@ namespace FanMatchTests.Logic
             Assert.That(matchi.LockedMatches.Count, Is.EqualTo(1), "There should be a match despite the fandom mismatch because it is locked");
             Assert.That(matchi.UnmatchedPeople, Is.Empty, "There should be no unmatched people");
         }
+
+        [Test]
+        public void MultiMatchersWontMatchEachOtherMultiply()
+        {
+
+        }
     }
 }

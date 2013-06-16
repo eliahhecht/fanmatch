@@ -54,8 +54,8 @@
     @foreach (var match in Model.Locked)
     {
        <tr data-reader-id="@match.ReaderId" data-writer-id="@match.WriterId">
-            <td>@match.ReaderName</td>
-            <td>@match.WriterName</td>
+            <td>@Html.Partial("_PersonTag", match.Reader)</td>
+            <td>@Html.Partial("_PersonTag", match.Writer)</td>
             <td>@match.FandomName</td>
             <td><a class="btn unlock" href="#"><i class="icon-lock"></i></a></td>
             <td><a class="btn btn-danger ban" href="#"><i class="icon-ban-circle"></i></a></td>
@@ -76,8 +76,8 @@
     @foreach (var match in Model.Matches)
     {
        <tr data-reader-id="@match.ReaderId" data-writer-id="@match.WriterId">
-            <td>@match.ReaderName</td>
-            <td>@match.WriterName</td>
+            <td>@Html.Partial("_PersonTag", match.Reader)</td>
+            <td>@Html.Partial("_PersonTag", match.Writer)</td>
             <td>@match.FandomName</td>
             <td><a class="btn btn-success lock" href="#"><i class="icon-lock"></i></a></td>
             <td><a class="btn btn-danger ban" href="#"><i class="icon-ban-circle"></i></a></td>
@@ -109,8 +109,9 @@
     @foreach (var match in Model.Banned)
     {
        <tr data-reader-id="@match.ReaderId" data-writer-id="@match.WriterId">
-            <td>@match.ReaderName</td>
-            <td>@match.WriterName</td>
+            <td>@Html.Partial("_PersonTag", match.Reader)</td>
+            <td>@Html.Partial("_PersonTag", match.Writer)</td>
+
             <td>@match.FandomName</td>
             <td><a class="btn btn-success lock" href="#"><i class="icon-lock"></i></a></td>
             <td><a class="btn unban" href="#"><i class="icon-ban-circle"></i></a></td>

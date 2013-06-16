@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using FanMatch.Models;
 using FanMatch.ViewModels;
+using System.Data.Entity;
 
 namespace FanMatch.Controllers
 { 
@@ -47,6 +48,7 @@ namespace FanMatch.Controllers
             using (var db = getDb())
             {
                 var fandom = db.GetById(id);
+                fandom.People.ToList().Select(p => p.Fandoms).ToList();
                 return View(new FandomViewModel(fandom));
             }
         }

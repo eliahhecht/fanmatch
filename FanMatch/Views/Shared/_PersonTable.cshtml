@@ -13,7 +13,8 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+                       @Html.Partial("_PersonTag", item)
+
         </td>
         <td>
             @Html.Partial("_PersonType", item)

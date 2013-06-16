@@ -33,8 +33,13 @@ namespace FanMatch.ViewModels
         public string WriterName {get;set;}
         public string FandomName {get;set;}
 
+        public Person Reader { get; set; }
+        public Person Writer { get; set; }
+
         public MatchViewModel(Match m)
         {
+            this.Writer = m.Writer;
+            this.Reader = m.Reader;
             this.ReaderId = m.Reader.Id;
             this.ReaderName = m.Reader.Name;
             this.WriterId = m.Writer.Id;

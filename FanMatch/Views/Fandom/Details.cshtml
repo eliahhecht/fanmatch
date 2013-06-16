@@ -18,9 +18,9 @@
     <div class="display-label">People</div>
     <div class="display-field">
     <ul>
-        @foreach (var person in Model.People.OrderBy(p => p))
+        @foreach (var person in Model.People.OrderBy(p => p.Name))
         {
-            <li>@person</li>
+            <li>@Html.Partial("_PersonTag", person)</li>
         }
         </ul>
     </div>
