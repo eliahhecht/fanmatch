@@ -130,10 +130,9 @@
 
                 if (startName.text() == endName.text()) { return true; }
 
-                var startFandoms = $(start).attr("title").split(", ");
-                var endFandoms = $(end).attr("title").split(', ');
-                if (_.intersect(startFandoms, endFandoms).length) {
-                    
+                var startFandoms = $(start).data("fandoms");
+                var endFandoms = $(end).data("fandoms");
+                if (_.intersect(startFandoms, endFandoms).length > 0) {                  
                     ElementLine(startName, endName);
                 }
             });
