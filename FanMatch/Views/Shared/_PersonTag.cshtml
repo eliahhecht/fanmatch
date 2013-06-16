@@ -6,7 +6,7 @@
     
     }
 
-
+<span class="personTag">
 @if (Model.IsReader)
 {
     <i class="icon-headphones"></i>
@@ -20,6 +20,9 @@
     <i class="icon-repeat"></i>
 }
 
+    <span class="personName">
 @Model.Name
+    </span>
 
 (<a class="fandom-tip" title="@(String.Join(", ", fandoms.Select(f=>f.Name).OrderBy(t => t)))">@fandoms.Count fandom@(s)</a>)
+    </span>

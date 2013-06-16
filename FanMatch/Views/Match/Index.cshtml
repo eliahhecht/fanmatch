@@ -8,6 +8,66 @@
 
 
 <script>
+
+    function DrawLine(x1, y1, x2, y2) {
+
+        if (y1 < y2) {
+            var pom = y1;
+            y1 = y2;
+            y2 = pom;
+            pom = x1;
+            x1 = x2;
+            x2 = pom;
+        }
+
+        var a = Math.abs(x1 - x2);
+        var b = Math.abs(y1 - y2);
+        var c;
+        var sx = (x1 + x2) / 2;
+        var sy = (y1 + y2) / 2;
+        var width = Math.sqrt(a * a + b * b);
+        var x = sx - width / 2;
+        var y = sy;
+
+        a = width / 2;
+
+        c = Math.abs(sx - x);
+
+        b = Math.sqrt(Math.abs(x1 - x) * Math.abs(x1 - x) + Math.abs(y1 - y) * Math.abs(y1 - y));
+
+        var cosb = (b * b - a * a - c * c) / (2 * a * c);
+        var rad = Math.acos(cosb);
+        var deg = (rad * 180) / Math.PI
+
+        htmlns = "http://www.w3.org/1999/xhtml";
+        div = document.createElementNS(htmlns, "div");
+        div.setAttribute('style', 'border:1px dashed #ccc;width:' + width + 'px;height:0px;-moz-transform:rotate(' + deg + 'deg);-webkit-transform:rotate(' + deg + 'deg);position:absolute;top:' + y + 'px;left:' + x + 'px;');
+        div.setAttribute('class', 'fandomLine');
+
+        document.getElementById("main").appendChild(div);
+
+    }
+
+    function ElementLine($start, $end) {
+        var startOffset = $start.offset();
+        var endOffset = $end.offset();
+        var xStart = startOffset.left + $start.width() / 2.0
+        var xEnd = endOffset.left + $end.width() / 2.0
+        var yStart, yEnd;
+        if (startOffset.top < endOffset.top) {
+            yStart = startOffset.top + $start.height();
+            yEnd = endOffset.top;
+        } else if (startOffset.top == endOffset.top) {
+            yStart = startOffset.top;
+            yEnd = endOffset.top;
+        } else {
+            yStart = startOffset.top;
+            yEnd = endOffset.top + $end.height();
+        }
+
+        DrawLine(xStart, yStart, xEnd, yEnd);
+    }
+
     $(function () {
         $('table .btn').on('click', function (e) {
             e.preventDefault();
@@ -50,6 +110,36 @@
                 "html");
 
         });
+
+        $(document).keyup(function (e) {
+
+            if (e.keyCode === 27) {
+                $(".fandomLine").remove();
+            }
+
+        });
+
+        $("#main").on("mouseover", ".personTag", function () {
+            $(".fandomLine").remove();
+            var start = $(this).find(".fandom-tip");
+            $(".fandom-tip").each(function () {
+                var end = this;
+                if (start == end) { return true; }
+                var startName = $(start).closest(".personTag").find(".personName");
+                var endName = $(end).closest(".personTag").find(".personName");
+
+                if (startName.text() == endName.text()) { return true; }
+
+                var startFandoms = $(start).attr("title").split(", ");
+                var endFandoms = $(end).attr("title").split(', ');
+                if (_.intersect(startFandoms, endFandoms).length) {
+                    
+                    ElementLine(startName, endName);
+                }
+            });
+        });
+
+
     });
 </script>
 
