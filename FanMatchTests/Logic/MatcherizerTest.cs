@@ -241,7 +241,12 @@ namespace FanMatchTests.Logic
         [Test]
         public void MultiMatchersWontMatchEachOtherMultiply()
         {
+            MakePerson(reader: true, writer: true).CanMatchMultiple = true;
+            MakePerson(reader: true, writer: true).CanMatchMultiple = true;
 
+            var matches = this.Match().Matches;
+
+            Assert.That(matches.Count, Is.EqualTo(1), "There should still only be 1 match because there are only 2 people");
         }
     }
 }

@@ -6,13 +6,30 @@ using FanMatch.Models.Logic;
 
 namespace FanMatch.Models
 {
+    public class MatchDict
+    {
+        private HashSet<Tuple<int, int>> matches = new HashSet<Tuple<int, int>>();
+
+        public void Add(int a, int b)
+        {
+            this.matches.Add(Tuple.Create(a, b));
+        }
+
+        public bool Contains(int a, int b)
+        {
+            return matches.Contains(Tuple.Create(a, b))
+                || matches.Contains(Tuple.Create(b, a));
+        }
+    }
+
     public class Matcherizer
     {
         private IEnumerable<Person> people;
         private Dictionary<int, int> matchCountByPersonId;
         private Dictionary<int, List<Person>> matchablePeopleByFandomId;
-        private HashSet<Tuple<int, int>> banned;
-        private HashSet<Tuple<int, int>> locked;
+        private MatchDict banned;
+        private MatchDict locked;
+        private MatchDict alreadyMatched;
         private MatchResult res;
 
         public const int MAX_MATCHES_PER_PERSON = 2;
@@ -22,8 +39,9 @@ namespace FanMatch.Models
             this.people = people;
             this.matchCountByPersonId = people.ToDictionary(p => p.Id, p => 0);
             this.matchablePeopleByFandomId = new Dictionary<int, List<Person>>();
-            this.banned = new HashSet<Tuple<int, int>>();
-            this.locked = new HashSet<Tuple<int, int>>();
+            this.banned = new MatchDict();
+            this.locked = new MatchDict();
+            this.alreadyMatched = new MatchDict();
             this.res = new MatchResult();
 
             foreach (var person in people)
@@ -46,10 +64,11 @@ namespace FanMatch.Models
                     matchCountByPersonId[match.Writer.Id]++;
                     match.Fandom = match.Reader.Fandoms.Intersect(match.Writer.Fandoms).FirstOrDefault();
                     this.res.LockedMatches.Add(match);
+                    this.alreadyMatched.Add(match.Reader.Id, match.Writer.Id);
                 }
                 else if (match.IsBanned)
                 {
-                    this.banned.Add(Tuple.Create(match.Reader.Id, match.Writer.Id));
+                    this.banned.Add(match.Reader.Id, match.Writer.Id);
                     this.res.BannedMatches.Add(match);
                 }
             }
@@ -81,6 +100,7 @@ namespace FanMatch.Models
                     {
                         Console.WriteLine("Matched {0} and {1} on fandom {2}", match.Reader.Id, match.Writer.Id, fandom.Id);
                         res.Matches.Add(match);
+                        alreadyMatched.Add(match.Reader.Id, match.Writer.Id);
                         break;
                     }
                 }
@@ -98,8 +118,7 @@ namespace FanMatch.Models
 
         private bool BannedPair(Person a, Person b)
         {
-            return this.banned.Contains(Tuple.Create(a.Id, b.Id))
-                || this.banned.Contains(Tuple.Create(b.Id, a.Id));
+            return this.banned.Contains(a.Id, b.Id);
         }
 
         private Match FindMatch(Fandom fandom, Person person)
@@ -109,6 +128,7 @@ namespace FanMatch.Models
             var other = listForFandom
                 .Where(p => !this.BannedPair(person, p))
                 .Where(p => this.HasRoomForMoreMatches(p))
+                .Where(p => !this.alreadyMatched.Contains(p.Id, person.Id))
                 .OrderBy(p => this.matchCountByPersonId[p.Id])
                 .FirstOrDefault(p => p.Complements(person));
             if (other == null)
