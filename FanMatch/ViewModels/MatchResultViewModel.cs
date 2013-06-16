@@ -46,5 +46,14 @@ namespace FanMatch.ViewModels
             this.WriterName = m.Writer.Name;
             this.FandomName = m.Fandom == null ? String.Empty : m.Fandom.Name;
         }
+
+
+        public string FandomIntersection()
+        {
+            return this.Writer.Fandoms.Intersect(this.Reader.Fandoms)
+                .OrderBy(f => f.Name)
+                .Select(f => f.Name)
+                .StringJoin(", ");
+        }
     }
 }

@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Mvc;
 using FanMatch.Models;
 using FanMatch.ViewModels;
-using System.Data.Entity;
 
 namespace FanMatch.Controllers
 { 

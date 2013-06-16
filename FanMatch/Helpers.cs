@@ -39,5 +39,10 @@ namespace FanMatch
             return controller == currentController ? "active" : string.Empty;
         }
 
+        public static string StringJoin<T>(this IEnumerable<T> enumerable, string separator)
+        {
+            return string.Join(separator, enumerable.ToArray());
+        }
+
     }
 }
