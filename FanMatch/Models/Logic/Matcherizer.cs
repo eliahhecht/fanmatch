@@ -26,9 +26,7 @@ namespace FanMatch.Models
     {
         private IEnumerable<Person> people;
         private Dictionary<int, int> matchCountByPersonId;
-        private Dictionary<int, List<Person>> matchablePeopleByFandomId;
         private MatchDict banned;
-        private MatchDict locked;
         private MatchDict alreadyMatched;
         private MatchResult res;
 
@@ -38,23 +36,10 @@ namespace FanMatch.Models
         {
             this.people = people;
             this.matchCountByPersonId = people.ToDictionary(p => p.Id, p => 0);
-            this.matchablePeopleByFandomId = new Dictionary<int, List<Person>>();
             this.banned = new MatchDict();
-            this.locked = new MatchDict();
             this.alreadyMatched = new MatchDict();
             this.res = new MatchResult();
 
-            foreach (var person in people)
-            {
-                foreach (var fandom in person.Fandoms)
-                {
-                    if (!matchablePeopleByFandomId.ContainsKey(fandom.Id))
-                    {
-                        matchablePeopleByFandomId[fandom.Id] = new List<Person>();
-                    }
-                    matchablePeopleByFandomId[fandom.Id].Add(person);
-                }
-            }
 
             foreach (var match in existingMatches.ToList())
             {
