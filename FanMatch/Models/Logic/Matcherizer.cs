@@ -129,7 +129,8 @@ namespace FanMatch.Models
                 .Where(p => !this.BannedPair(person, p))
                 .Where(p => this.HasRoomForMoreMatches(p))
                 .Where(p => !this.alreadyMatched.Contains(p.Id, person.Id))
-                .OrderBy(p => this.matchCountByPersonId[p.Id])
+                .OrderBy(p => p.Fandoms.Count())
+                .ThenBy(p => this.matchCountByPersonId[p.Id])
                 .FirstOrDefault(p => p.Complements(person));
             if (other == null)
             {

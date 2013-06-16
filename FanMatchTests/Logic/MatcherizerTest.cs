@@ -248,5 +248,20 @@ namespace FanMatchTests.Logic
 
             Assert.That(matches.Count, Is.EqualTo(1), "There should still only be 1 match because there are only 2 people");
         }
+
+        [Test]
+        public void LockedPersonCanMatchAgain()
+        {
+            var a = MakeReader();
+            a.CanMatchMultiple = true;
+            var b = MakeWriter();
+            var c = MakeWriter();
+            this.Lock(a, b);
+
+            var matches = this.Match();
+
+            Assert.That(matches.Matches.Count, Is.EqualTo(1), "There should be one on-the-fly match");
+            Assert.That(matches.LockedMatches.Count, Is.EqualTo(1), "There should be one locked match");
+        }
     }
 }
