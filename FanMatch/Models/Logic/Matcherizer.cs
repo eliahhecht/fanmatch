@@ -106,35 +106,31 @@ namespace FanMatch.Models
             return this.banned.Contains(a.Id, b.Id);
         }
 
-        private Match FindMatch(Person other, Person person)
+        private Match FindMatch(Person a, Person b)
         {
 
-            if (this.BannedPair(other, person)
-                ||!HasRoomForMoreMatches(other)
-                ||this.alreadyMatched.Contains(person.Id, other.Id)
-                ||!person.Complements(other)
-                ||!other.Fandoms.Intersect(person.Fandoms).Any())
+            if (this.BannedPair(a, b)
+                ||!HasRoomForMoreMatches(a)
+                ||this.alreadyMatched.Contains(b.Id, a.Id)
+                ||!b.Complements(a)
+                ||!a.Fandoms.Intersect(b.Fandoms).Any())
             {
                 return null;
             }
-
-           
-            var matchees = new[] { person, other };
-            foreach (var p in matchees)
-            {
-                matchCountByPersonId[p.Id]++;
-            }
+        
+            matchCountByPersonId[b.Id]++;
+            matchCountByPersonId[a.Id]++;
 
             Person reader, writer;
-            if (person.IsReader && other.IsWriter)
+            if (b.IsReader && a.IsWriter)
             {
-                reader = person;
-                writer = other;
+                reader = b;
+                writer = a;
             }
             else
             {
-                writer = person;
-                reader = other;
+                writer = b;
+                reader = a;
             }
 
 
