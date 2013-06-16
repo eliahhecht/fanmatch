@@ -93,12 +93,12 @@ namespace FanMatch.Models
                 }
 
 
-                foreach (var fandom in person.Fandoms)
+                foreach (var other in allThePeople.OrderBy(p => p.Fandoms.Count()))
                 {
-                    var match = FindMatch(fandom, person);
+                    var match = FindMatch(other, person);
                     if (match != null)
                     {
-                        Console.WriteLine("Matched {0} and {1} on fandom {2}", match.Reader.Id, match.Writer.Id, fandom.Id);
+                        Console.WriteLine("Matched {0} and {1}", match.Reader.Id, match.Writer.Id);
                         res.Matches.Add(match);
                         alreadyMatched.Add(match.Reader.Id, match.Writer.Id);
                         break;
@@ -121,30 +121,23 @@ namespace FanMatch.Models
             return this.banned.Contains(a.Id, b.Id);
         }
 
-        private Match FindMatch(Fandom fandom, Person person)
+        private Match FindMatch(Person other, Person person)
         {
-            var listForFandom = this.matchablePeopleByFandomId[fandom.Id];
 
-            var other = listForFandom
-                .Where(p => !this.BannedPair(person, p))
-                .Where(p => this.HasRoomForMoreMatches(p))
-                .Where(p => !this.alreadyMatched.Contains(p.Id, person.Id))
-                .OrderBy(p => p.Fandoms.Count())
-                .ThenBy(p => this.matchCountByPersonId[p.Id])
-                .FirstOrDefault(p => p.Complements(person));
-            if (other == null)
+            if (this.BannedPair(other, person)
+                ||!HasRoomForMoreMatches(other)
+                ||this.alreadyMatched.Contains(person.Id, other.Id)
+                ||!person.Complements(other)
+                ||!other.Fandoms.Intersect(person.Fandoms).Any())
             {
                 return null;
             }
+
+           
             var matchees = new[] { person, other };
             foreach (var p in matchees)
             {
                 matchCountByPersonId[p.Id]++;
-
-                if (!HasRoomForMoreMatches(p))
-                {
-                    listForFandom.Remove(p);
-                }
             }
 
             Person reader, writer;
@@ -160,7 +153,7 @@ namespace FanMatch.Models
             }
 
 
-            return new Match { Fandom = fandom, Writer = writer, Reader = reader };
+            return new Match { Writer = writer, Reader = reader };
         }
 
     }

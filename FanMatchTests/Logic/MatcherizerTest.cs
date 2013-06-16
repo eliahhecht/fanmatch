@@ -86,7 +86,6 @@ namespace FanMatchTests.Logic
             var match = matches.Single();
             Assert.That(match.Reader, Is.EqualTo(reader), "The reader of the match should be our reader person");
             Assert.That(match.Writer, Is.EqualTo(writer), "The writer of the match should be our writer person");
-            Assert.That(match.Fandom, Is.EqualTo(fandom.Single()), "The fandom of the match should be our fandom");
             Assert.That(matchInfo.UnmatchedPeople, Is.Empty, "There should be no unmatched people");
         }
 
