@@ -232,6 +232,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Fandom\_FandomTable.cshtml" />
     <Content Include="Views\Shared\_PersonTag.cshtml" />
+    <Content Include="Views\Match\_PeopleDropdown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

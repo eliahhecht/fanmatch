@@ -12,14 +12,16 @@ namespace FanMatch.ViewModels
         public ICollection<MatchViewModel> Matches { get; set; }
         public ICollection<MatchViewModel> Locked { get; set; }
         public ICollection<MatchViewModel> Banned { get; set; }
+        public ICollection<Person> AllPeople { get; set; }
 
         public ICollection<Person> UnmatchedPeople { get; set; }
 
-        public MatchResultViewModel(MatchResult res)
+        public MatchResultViewModel(MatchResult res, IEnumerable<Person> allPeople)
         {
             this.Matches = res.Matches.Select(m => new MatchViewModel(m)).ToList();
             this.Locked = res.LockedMatches.Select(m => new MatchViewModel(m)).ToList();
             this.Banned = res.BannedMatches.Select(m => new MatchViewModel(m)).ToList();
+            this.AllPeople = allPeople.ToList();
 
             this.UnmatchedPeople = res.UnmatchedPeople.ToList();
         }

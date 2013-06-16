@@ -83,6 +83,12 @@ namespace FanMatch.Controllers
             return View(model);
         }
 
+        public PartialViewResult _PersonTag(int id)
+        {
+            var person = db.People.Find(id);
+            return PartialView(person);
+        }
+
         //
         // POST: /Person/Edit/5
 

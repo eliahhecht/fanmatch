@@ -37,9 +37,10 @@ namespace FanMatch.Controllers
             using (var pRepo = this.personRepo())
             using (var mRepo = this.matchRepo())
             {
-                var matcher = new Matcherizer(pRepo.GetAll(), mRepo.LoadAll());
+                var allPeople = pRepo.GetAll();
+                var matcher = new Matcherizer(allPeople, mRepo.LoadAll());
                 var matches = matcher.Matcherize();
-                return View(new MatchResultViewModel(matches));
+                return View(new MatchResultViewModel(matches, allPeople));
             }
         }
 

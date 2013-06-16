@@ -6,7 +6,6 @@
 
 <h1>@ViewBag.Title</h1>
 
-<h3>Locked</h3>
 
 <script>
     $(function () {
@@ -28,6 +27,29 @@
             $("#matchAction").val(action);
             $("#ChangeMatchStatus").submit();
         });
+
+        $(".manualSelect").on("change", function () {
+            var select = this;
+            var personId = $(select).val();
+            var target = $(select).data("tag-placeholder");
+            if (!personId) {
+                $(target).html("");
+                $("#manualSubmit").addClass("disabled");
+                return;
+            }
+
+            if (_.every($(".manualSelect"), function (e) { return $(e).val(); })) {
+                $("#manualSubmit").removeClass("disabled");
+            }
+
+            $.get("@Url.Action("_PersonTag", "Person")",
+                { id: personId },
+                function (data) {
+                    $(target).html(data);
+                },
+                "html");
+
+        });
     });
 </script>
 
@@ -43,6 +65,39 @@
     <input type="hidden" name="action" id="matchAction"/>
 </form>
 
+<div class="row-fluid">
+<form method="post" class="well well-small span4"  action="@Url.Action("ChangeMatchStatus")">
+    <fieldset>
+    @Html.Hidden("action", "Lock")
+    <legend>Manual match</legend>
+    <label for="reader">Reader: <span id="readerTagPlaceholder"></span></label>
+    <select name="reader"class="manualSelect"  data-tag-placeholder="#readerTagPlaceholder">
+        <option></option>
+        @foreach (var person in Model.AllPeople.Where(p => p.IsReader).OrderBy(p => p.Name))
+        {
+            <option value="@person.Id">@person.Name</option>
+        }
+    </select>
+
+    <label for="writer">Writer: <span id="writerTagPlaceholder"></span></label>
+    <select name="writer" class="manualSelect" data-tag-placeholder="#writerTagPlaceholder">
+        <option></option>
+        @foreach (var person in Model.AllPeople.Where(p => p.IsWriter).OrderBy(p => p.Name))
+        {
+            <option value="@person.Id">@person.Name</option>
+        }
+    </select>
+
+    <br />
+
+    <button type="submit" class="btn btn-success disabled" id="manualSubmit" value="Lock"><i class="icon-lock icon-white"></i> Lock</button>
+        </fieldset>
+</form>
+    </div>
+
+<h3>Locked</h3>
+
+
 <table class="table table-bordered table-striped match-table">
     <tr>
         <th>Reader</th>
@@ -51,6 +106,7 @@
         <th>Unlock</th>
         <th>Ban</th>
     </tr>
+
     @foreach (var match in Model.Locked)
     {
        <tr data-reader-id="@match.ReaderId" data-writer-id="@match.WriterId">
@@ -58,7 +114,7 @@
             <td>@Html.Partial("_PersonTag", match.Writer)</td>
             <td>@match.FandomIntersection()</td>
             <td><a class="btn unlock" href="#"><i class="icon-lock"></i></a></td>
-            <td><a class="btn btn-danger ban" href="#"><i class="icon-ban-circle"></i></a></td>
+            <td><a class="btn btn-danger ban" href="#"><i class="icon-ban-circle  icon-white"></i></a></td>
         </tr>
     }
 </table>
@@ -79,8 +135,8 @@
             <td>@Html.Partial("_PersonTag", match.Reader)</td>
             <td>@Html.Partial("_PersonTag", match.Writer)</td>
             <td>@match.FandomIntersection()</td>
-            <td><a class="btn btn-success lock" href="#"><i class="icon-lock"></i></a></td>
-            <td><a class="btn btn-danger ban" href="#"><i class="icon-ban-circle"></i></a></td>
+            <td><a class="btn btn-success lock" href="#"><i class="icon-lock icon-white"></i></a></td>
+            <td><a class="btn btn-danger ban" href="#"><i class="icon-ban-circle icon-white"></i></a></td>
         </tr>
     }
 </table>
@@ -113,7 +169,7 @@
             <td>@Html.Partial("_PersonTag", match.Writer)</td>
 
             <td>@match.FandomIntersection()</td>
-            <td><a class="btn btn-success lock" href="#"><i class="icon-lock"></i></a></td>
+            <td><a class="btn btn-success lock" href="#"><i class="icon-lock icon-white"></i></a></td>
             <td><a class="btn unban" href="#"><i class="icon-ban-circle"></i></a></td>
         </tr>
     }

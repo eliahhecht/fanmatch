@@ -1,0 +1,9 @@
+﻿@model IEnumerable<FanMatch.Models.Person>
+
+<select>
+    @foreach (var person in this.Model)
+    {
+        <option value="@person.Id">@person.Name</option>
+    }
+
+</select>
