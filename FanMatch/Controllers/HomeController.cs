@@ -20,7 +20,7 @@ namespace FanMatch.Controllers
         {
             if (password == "podficplease")
             {
-                Response.Cookies.Add(new HttpCookie("auth", "true"));
+                Response.Cookies.Add(new HttpCookie(HackAuthAttribute.CookieName, "true"));
             }
 
             return RedirectToAction("Index", "Match");
