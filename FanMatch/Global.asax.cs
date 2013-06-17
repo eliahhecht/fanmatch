@@ -36,7 +36,7 @@ namespace FanMatch
         {
 #if DEBUG
 #else
-            if (HttpContext.Current.Request.IsSecureConnection == false && Request.ServerVariables["HTTP_HOST"] != "localhost")
+            if (HttpContext.Current.Request.IsSecureConnection == false)
             {
                 Response.Redirect("https://" + Request.ServerVariables["HTTP_HOST"] + HttpContext.Current.Request.RawUrl);
             }
