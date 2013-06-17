@@ -32,6 +32,17 @@ namespace FanMatch
 
         }
 
+        protected void Application_BeginRequest(Object sender, EventArgs e)
+        {
+#if DEBUG
+#else
+            if (HttpContext.Current.Request.IsSecureConnection == false && Request.ServerVariables["HTTP_HOST"] != "localhost")
+            {
+                Response.Redirect("https://" + Request.ServerVariables["HTTP_HOST"] + HttpContext.Current.Request.RawUrl);
+            }
+#endif
+        }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

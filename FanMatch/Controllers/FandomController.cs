@@ -10,6 +10,7 @@ using FanMatch.ViewModels;
 
 namespace FanMatch.Controllers
 { 
+    [CustomBasicAuthorize]
     public class FandomController : Controller
     {
         private readonly Func<IFandomRepository> getDb;

@@ -17,6 +17,7 @@ namespace FanMatch.Controllers
         Lock
     }
 
+    [CustomBasicAuthorize]
     public class MatchController : Controller
     {
         private readonly Func<IMatchRepository> matchRepo;
