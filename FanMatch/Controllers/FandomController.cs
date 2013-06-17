@@ -10,7 +10,7 @@ using FanMatch.ViewModels;
 
 namespace FanMatch.Controllers
 { 
-
+    [HackAuth]
     public class FandomController : Controller
     {
         private readonly Func<IFandomRepository> getDb;

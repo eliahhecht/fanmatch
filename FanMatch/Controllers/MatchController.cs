@@ -17,7 +17,7 @@ namespace FanMatch.Controllers
         Lock
     }
 
-
+        [HackAuth]
     public class MatchController : Controller
     {
         private readonly Func<IMatchRepository> matchRepo;

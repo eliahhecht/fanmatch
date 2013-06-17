@@ -84,6 +84,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HackAuth.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Migrations\201206260217172_InitialCreate.cs" />
     <Compile Include="Migrations\201206260217172_InitialCreate.Designer.cs">

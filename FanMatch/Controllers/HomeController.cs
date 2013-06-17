@@ -16,6 +16,16 @@ namespace FanMatch.Controllers
             return View();
         }
 
+        public ActionResult SetCookie(string password)
+        {
+            if (password == "podficplease")
+            {
+                Response.Cookies.Add(new HttpCookie("auth", "true"));
+            }
+
+            return RedirectToAction("Index", "Match");
+        }
+
         public ActionResult About()
         {
             return View();

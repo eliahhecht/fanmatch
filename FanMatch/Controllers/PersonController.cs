@@ -10,7 +10,7 @@ using FanMatch.Models;
 namespace FanMatch.Controllers
 {
 
-
+    [HackAuth]
     public class PersonController : Controller
     {
         public class PersonEditorViewModel

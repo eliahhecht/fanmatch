@@ -2,7 +2,14 @@
     ViewBag.Title = "Home Page";
 }
 
-<h2>@ViewBag.Message</h2>
+<h2>Welcome</h2>
+
 <p>
-    Welcome. Aardvark attack!
+    Aardvark attack!
 </p>
+
+<form method="post" action="@Url.Action("SetCookie")">
+    <label for="password">Password: </label>
+    <input type="password" name="password" /><br />
+    <input type="submit" class="btn btn-primary" value="Go" />
+</form>
