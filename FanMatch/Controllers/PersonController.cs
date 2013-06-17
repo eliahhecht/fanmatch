@@ -10,7 +10,7 @@ using FanMatch.Models;
 namespace FanMatch.Controllers
 {
 
-    [CustomBasicAuthorize]
+
     public class PersonController : Controller
     {
         public class PersonEditorViewModel

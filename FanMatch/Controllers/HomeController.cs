@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace FanMatch.Controllers
 {
-    [CustomBasicAuthorize]
+
     public class HomeController : Controller
     {
         public ActionResult Index()
