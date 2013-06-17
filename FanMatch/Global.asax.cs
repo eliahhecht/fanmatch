@@ -32,16 +32,7 @@ namespace FanMatch
 
         }
 
-        protected void Application_BeginRequest(Object sender, EventArgs e)
-        {
-#if DEBUG
-#else
-            if (HttpContext.Current.Request.IsSecureConnection == false)
-            {
-                Response.Redirect("https://" + Request.ServerVariables["HTTP_HOST"] + HttpContext.Current.Request.RawUrl);
-            }
-#endif
-        }
+
 
         protected void Application_Start()
         {
