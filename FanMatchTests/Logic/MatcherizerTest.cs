@@ -24,14 +24,16 @@ namespace FanMatchTests.Logic
             this.existingMatches = new List<Match>();
         }
 
-        private Person MakePerson(ICollection<Fandom> fandoms = null, bool reader = false, bool writer = false)
+        private Person MakePerson(ICollection<Fandom> fandoms = null, bool reader = false, bool writer = false,
+            string name = null)
         {
             var p = new Person
             {
                 Fandoms = fandoms ?? new [] {this.universalFandom},
                 IsReader = reader,
                 IsWriter = writer,
-                Id = idGen.GetId()
+                Id = idGen.GetId(),
+                Name = name ?? Guid.NewGuid().ToString()
             };
             this.people.Add(p);
             return p;
@@ -87,6 +89,20 @@ namespace FanMatchTests.Logic
             Assert.That(match.Reader, Is.EqualTo(reader), "The reader of the match should be our reader person");
             Assert.That(match.Writer, Is.EqualTo(writer), "The writer of the match should be our writer person");
             Assert.That(matchInfo.UnmatchedPeople, Is.Empty, "There should be no unmatched people");
+        }
+
+        [Test]
+        public void PeopleWithSameName_AreNotMatched()
+        {
+            var fandom = new[] { MakeFandom() };
+            const string name = "Some Person";
+            var person1 = MakePerson(fandom, reader: true, name: name);
+            var person2 = MakePerson(fandom, writer: true, name: name);
+
+            var matches = new Matcherizer(new[] { person1, person2 }, existingMatches).Matcherize().Matches;
+
+            Assert.That(matches, Is.Empty,
+                "Two people with the same name should not match");
         }
 
         [Test]

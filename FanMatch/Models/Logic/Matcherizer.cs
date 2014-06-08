@@ -77,7 +77,6 @@ namespace FanMatch.Models
                     continue;
                 }
 
-
                 foreach (var other in allThePeople.OrderBy(p => p.Fandoms.Count()))
                 {
                     var match = FindMatch(other, person);
@@ -113,7 +112,8 @@ namespace FanMatch.Models
                 ||!HasRoomForMoreMatches(a)
                 ||this.alreadyMatched.Contains(b.Id, a.Id)
                 ||!b.Complements(a)
-                ||!a.Fandoms.Intersect(b.Fandoms).Any())
+                ||!a.Fandoms.Intersect(b.Fandoms).Any()
+                || a.Name.Equals(b.Name, StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
